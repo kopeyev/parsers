@@ -1,0 +1,17 @@
+services:
+  standalone-chromium:
+    image: selenium/standalone-chromium:137.0
+    shm_size: "2g"
+    ports:
+      - "127.0.0.1:7900:7900"
+
+  apps:
+    depends_on:
+      - standalone-chromium
+    build:
+      context: ./docker
+      args:
+        UID: 501
+        GID: 501
+    volumes:
+      - .:/mnt/parsers
